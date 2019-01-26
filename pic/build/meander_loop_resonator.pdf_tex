@@ -54,8 +54,8 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{meander_loop_resonator.pdf}}%
-    \put(0.31545775,0.67386612){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l} \end{tabular}}}}%
-    \put(0.57380057,0.45349177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l} \end{tabular}}}}%
+    \put(0.31545775,0.67386612){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\end{tabular}}}}%
+    \put(0.57380057,0.45349177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{meander_loop_resonator.pdf}}%
     \put(0.69028233,0.73153137){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}$p$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{meander_loop_resonator.pdf}}%
