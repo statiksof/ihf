@@ -1,0 +1,147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ihf Packet, gehört zur ihf-Klasse
+%%     IHF, TUHH
+%% Dieses Packet bindet einige häufig verwendete Packete ein und 
+%%		definiert neue Befehle. 
+%%
+%% Author: Christian Rave,Thomas Jaschke
+%% Version: 2016.05
+%% Änderungen:
+%%		24.09.2012:CR 2012.01   -> siunitx statt SIunits,
+%%								-> Alte Einheiten entfernt
+%%      25.09.2012:CR 2012.02   -> svg-Erweiterung von Thoms Jaschke
+%%                 TJ           -> Formatierung von Abkürzungsverzeichnis (acronym, acronymbf, lostofacronyms)            
+%%		19.10.2012:CR           -> Eidesstattliche Erklärung in die ihf-Klasse
+%%								-> Gleichungen mit Klammer referenzieren
+%%		23.10.2012:CR           -> \subincludesvgLayer
+%% 		18.12.2012:CR 2012.03   -> \subincludesvgId
+%%								-> "Gleichungen mit Klammer referenzieren" -> Auskommntiert
+%%		21.12.2012:CR 			-> Subfig statt subfigure
+%%		05.02.2015:CR 2015.01	-> svg-Erweiterung überarbeitet, Kompatibilität zu nicht-Windows Systemen verbessert
+%%		23.06.2015:CR 2015.02	-> Abkürzungsverzzeichnis funktioniert mit neuen und alten TeX-Versionen
+%%		02.12.2015:CR 2015.03	-> Befehl \svg hinzugefügt
+%%		05.02.2016:CR 2016.01   -> Versionsabfrage hinzugefügt, Abkürzungsverzeichnis angepasst, Option pdfwarningpagegroup hinzugefügt, Package Subfig entfernt
+%%		06.05.2016:TJ 2016.02   -> Abwärtskompatibilität, Layer1 nicht mehr automatisch, : Doppelpunkt für Dateisuffix
+%%		07.04.2017:TJ 2017.01   -> Auslagerung svg Befehlen in svg.sty
+%%      17.08.2016:CR 2016.05   -> Befehl \listofsortedacronyms
+%%      26.04.2018:TJ 2018.02   -> Add deflist enviroment
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{ihf}[2018/04/26 ihf package]
+\newcommand{\ihfVersion}{\textbf{2018.02}}
+
+% Optionen
+\begingroup\expandafter\expandafter\expandafter\endgroup
+\expandafter\ifx\csname pdfsuppresswarningpagegroup\endcsname\relax
+\else
+  \pdfsuppresswarningpagegroup=1\relax
+\fi
+\DeclareOption{pdfwarningpagegroup}{
+	\pdfsuppresswarningpagegroup=0
+}
+
+\ProcessOptions\relax
+
+%%%%%%%%%%%%
+%% Packete einbinden
+\RequirePackage{upgreek} 			% Aufrechte griechische Buchstaben mit \up+Buchstabe
+\RequirePackage{blindtext}			% Zum Ausprobieren
+%\RequirePackage{etoolbox}
+
+
+\RequirePackage{siunitx}							% SI-Einheiten
+\iflanguage{ngerman}{ % Dezimalstellen mit "," trennen im Deutschen
+	\sisetup{
+	locale=DE,
+	per-mode=fraction,
+    exponent-product = \cdot
+	}
+}{
+	\sisetup{
+	per-mode=fraction,
+	exponent-product = \cdot
+}
+}
+
+%%%%%%%%%
+%% Gleichungen mit (1.1) referenzieren
+%    \let\oldtheequation\theequation
+%    \makeatletter
+%    \def\tagform@#1{\maketag@@@{\ignorespaces#1\unskip\@@italiccorr}}
+%    \renewcommand{\theequation}{(\oldtheequation)}
+%    \makeatother
+%%%%%%%%%
+
+
+%%%%%%%%%%%%
+%% List for notations
+\newenvironment{deflist}[1]%
+        {
+        \raggedright\begin{list}{}%
+          {%
+            \setlength{\labelwidth}{#1}%
+            \setlength{\leftmargin}{\labelwidth}%
+            \addtolength{\leftmargin}{\labelsep}%
+            \setlength{\parskip}{0ex}%
+            \setlength\parsep{0ex}%
+            \renewcommand{\makelabel}[1]{##1 \dotfill}%
+          }%
+        }%
+        {\end{list}}%
+
+%%%%%%%%%%%%
+%% Abkürzungsumgebungen
+
+\RequirePackage[printonlyused]{acronym} % Für Abkürzungen
+
+\@ifpackagelater{acronym}{2015/01/01}
+  {%
+    \newenvironment{listofacronyms}[1][]{
+%    \addchap{\iflanguage{ngerman}{Abkürzungsverzeichnis}{List of Abbreviations}} % TJ: no chapter
+    \begin{acronym}[#1\hspace{3.5cm}]
+      \setlength{\parskip}{0ex} % TJ: spacing
+      \renewcommand*{\aclabelfont}[1]{##1} % TJ
+      \renewcommand{\AC@makelabel}[1]{##1 \dotfill}
+    }{
+      \end{acronym}
+    }
+  }
+  {% Funktiniert nicht mit aktueller LaTeX-Version
+    \let\oldacronym\acronym
+    \def\acronym{
+      \renewcommand{\bflabel}[1]{\normalfont ##1\hfill}
+      \oldacronym
+    }
+	
+    \newenvironment{acronymbf}[1][1]{
+      \begin{acronym}[#1]
+      \renewcommand{\bflabel}[1]{\textbf{##1\hfill}}
+    }{
+      \end{acronym}
+    }
+	
+    \newenvironment{listofacronyms}[1][]{
+%      \addchap{\iflanguage{ngerman}{Abkürzungsverzeichnis}{List of Abbreviations}} % TJ: no chapter
+      \begin{acronymbf}[#1]
+    }{
+      \end{acronymbf}
+    }
+  }%
+  
+%% Ein sortiertes Abkürzungsverzeichnis
+% \listofsortedacronyms[Referenz][Abkürzungen.tex]
+\newcommand{\listofsortedacronyms}[2][abcdefg]{
+\IfFileExists{#2}{%
+\executeiffilenewer{#2}{#2_sort.acro}{sort #2 /o #2_sort.acro}% Sortieren
+\IfFileExists{#2_sort.acro}{}{\executeiffilenewer{#2}{#2_sort.acro}{sort #2 -o #2_sort.acro}}%Versuche die Linux-Schreibweise 
+\IfFileExists{#2_sort.acro}{
+\begin{listofacronyms}[#1]
+\input{#2_sort.acro}
+\end{listofacronyms}
+}{\PackageError{ihf.sty}{File #2_sort.acro not found}{Check if -shell-escape is used}}
+}{\PackageError{ihf.sty}{File #2 not found}{}}
+}  
+  
+% end package
+\endinput

@@ -1,0 +1,8 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{System Overiew}{4}{0}{1}
+\beamer@sectionintoc {2}{Basic Theory}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Electrical Coupling}{8}{0}{2}
+\beamer@sectionintoc {3}{Dual-Mode Filters}{10}{0}{3}
+\beamer@sectionintoc {4}{Compact Diplexer}{17}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{18}{0}{5}
