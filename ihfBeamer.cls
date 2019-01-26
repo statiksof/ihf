@@ -109,7 +109,7 @@
 }
 
 % Sprache
-\newcommand{\B@BelLanguage}{ngerman} % Voreinstellung
+\newcommand{\B@BelLanguage}{english} % Voreinstellung
 \DeclareOption{english}{ % Englisch
 	\renewcommand{\B@BelLanguage}{english}
 }

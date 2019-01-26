@@ -26,7 +26,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\documentclass[]{ihfBeamer} %Präsentation (klassischer Stil)
-\documentclass[student]{ihfBeamer} %Präsentation im ihf-Stil
+\documentclass[student,english]{ihfBeamer} %Präsentation im ihf-Stil
 %\documentclass[student,16zu9]{ihfBeamer} %Präsentation im 16:9-ihf-Stil
 %\documentclass[conference]{ihfBeamer} %Präsentation im  Konferenz-Stil
 %\documentclass[handout,student]{ihfBeamer} %Handout
@@ -98,17 +98,30 @@
 %			\includesvg[width=0.5\textwidth]{pic/Bilder/}{Test}{layer2, layer3}
 %			Zeichnet layer2 und layer3
 %	Anm: Ein alternativ kann auch \svg verwendet werden
-
+\usepackage{legend}
+\usepackage[T1]{fontenc}
+\usepackage{caption}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{siunitx} 
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{xcolor}	
+\usepackage{multicol}
 
 %%
 %%%%%%%%%%
 
 %%%%%%%%%%%%%%
 %% Einstellungen für das Dokument
-\iTitle[Kurz]{Langer Titel}
-\iSubtitle[K. U.Titel]{Untertitel}
-\iAuthor[D.Autor]{Der Author}
+\iTitle[Kurz]{Developement of a Ku-Band Diplexer}
+%\iSubtitle[K. U.Titel]{Untertitel}
+\iAuthor[D.Autor]{Hassab Youcef}
 \iDate{\today}
+\iBachelor
 %\iSeminar % == \iType{Seminarvortrag}
 %\iType{Seminarvortrag} % Oder \iBachelor etc, siehe ihf-Template für Abschlussarbeiten
 
@@ -149,136 +162,148 @@
 % Table of Contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Die ihf-Beamer Klasse}
+\section{Introduction}
 \contentframe
 
-\subsection{Optionen}
+\subsection{System Overiew}
 
-\begin{frame}{Übersicht}
-Optionen der Klasse:\\
-\begin{itemize}
-\item Stile der Titelseite:
-\begin{itemize}
-\item classic: Nur TUHH-Logo
-\item student: IHF-Logo, Art des Vortrages
-\item conference: TUHH-Logo, Konferenz, Ort, Session
-\end{itemize}
-\item Foliensatz
-\begin{itemize}
-\item handout, handout2: Handout
-\item article, book: Für Artikel, Skripte, Bücher
-\end{itemize}
-\item Sprache: english, ngerman, german
-\item Zeichenkodierung: utf8 (default), latin1, anisnew, applemac
-\item hideallsubsections: Subsections werden in der Gliederung nicht gezeigt
-\item openFullScreen: PDF wird im Vollbildmodus geöffnet (nicht bei Handouts oder Umdrucken)
-\end{itemize}
+\begin{frame}{Lead}
+	\begin{itemize}
+		\item Satellite communication
+		\begin{itemize}
+			\item major technological advancement
+			\item vital role in communication systems
+			\item many applications limited on space and mass
+		\end{itemize}
+		\item Filters and Diplexers
+		\begin{itemize}
+			\item key components in communication systems
+			\item interessting signal processing propreties
+		\end{itemize}
+		\item Growing need for compact and efficient filters.
+	\end{itemize}
 \end{frame}
 
+\begin{frame}{System Schematic}
+	\begin{figure}[H]
+		\svg{pic/}{system2}{}
+		\caption{Simplified system schematic.}
+	\end{figure}
+\end{frame}	
 
-
-\section{Svg-Grafiken}
+\begin{frame}{Requirements}
+\begin{itemize}
+	
+\item Based on dual-mode microstrip resonators
+\item Integrable in stack-up
+\item Compact
+\item Performance:
+\begin{itemize}
+	\item return loss of at least 15 dB in 500 MHz bandwidths around 13.5 GHz and 17.5 GHz + minimal insertion losses.
+\end{itemize}
+\end{itemize}
+\end{frame}	
+	
+\section{Basic Theory}
 \contentframe
 
-\subsection{Befehle}
+\subsection{Electrical Coupling}
 
-\begin{frame}{Voraussetzungen}
-Die svg-Befehle starten Inkscape, um svg-Grafiken in pdf-Dateien umzuwandeln, dafür müssen folgende Bedingungen erfüllt sein:\\
+\begin{frame}{Electrical Coupling}
+Electrical coupling of two LC tuned circuits results in two resonance frequencies: 
+
+\begin{equation}
+f_{1} = \frac{1}{2\pi\sqrt{L(C-C_{m})}} %\quad\si{\hertz}
+\end{equation}
+and 
+\begin{equation}
+f_{2} = \frac{1}{2\pi\sqrt{L(C+C_{m})}}. %\quad\si{\hertz}
+\end{equation}
+    \begin{figure}
+	\svg{pic/}{LC_parallel_simple}{}
+	\caption{Electrically coupled resonator circuits.}
+\end{figure} 
+\end{frame}		
+
+\begin{frame}{Dual-Mode Resonators}
 \begin{itemize}
-\item Inkscape muss installiert sein
-\item Das System muss den Dateipfad zu Inksape kennen (Umgebungsvariable \textit{path})
-\item (pdf)\LaTeX{} muss die Option \textit{-shell-escape} übergeben werden
+\item 
+Support two electromagnetic modes that possess the same resonance frequency (degenerate modes)
+\item Degenerate modes can be electrically coupled using a conductor perturbation
 \end{itemize}
+\begin{figure}[h]
+	\svg{pic/}{dual_resonators}{}
+	\caption{Typical microstrip dual-mode resonators.}
+\end{figure} 
 \end{frame}
 
-\begin{frame}{Übersicht}
-Das ihf-Package stellt die folgenden Befehle zum Einbinden von svg-Grafiken bereit:\\
-\begin{itemize}
-\item \textbackslash includesvg [scale]\{dir/\}\{filename\}\{ids\}: Universalbefehl, neu ab v2015.3
-\item \textbackslash svg [scale]\{dir/\}\{filename\}\{ids\}: Derselbe Befehl, nur kürzer
-\item Veraltet:
-\begin{itemize}
-\item \textbackslash subincludesvg\{pic/\}\{Test\}
-\item \textbackslash subincludesvgId\{pic/\}\{Test\}\{Id\}\{postfix\}
-\item \textbackslash subincludesvgLayer\{--select=layer1 --select=layer3\}\{pic/\}\{Test\}\{postfix\}
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\subsection{Einfache Grafiken}
-
-\begin{frame}{\textbackslash subincludesvg}
-\subincludesvg{pic/}{Test}\\
-\textbackslash subincludesvg\{pic/\}\{Test\}\\
-Zeigt alle Ebenen auf einmal
-\end{frame}
-
-\begin{frame}{\textbackslash includesvg ohne ids}
-\includesvg{pic/}{Test}{}\\
-\textbackslash includesvg\{pic/\}\{Test\}\{\}\\
-Macht dasselbe
-\end{frame}
-
-\begin{frame}{\textbackslash includesvg mit Skalierung}
-\includesvg[width=0.5\textwidth]{pic/}{Test}{}\\
-\textbackslash includesvg[width=0.5\textbackslash textwidth]\{pic/\}\{Test\}\{\}\\
-Skalierung wie mit \textbackslash includegraphics möglich
-\end{frame}
-
-\subsection{Verwendung von Layern}
-
-\begin{frame}{\textbackslash includesvg mit ids}
-\begin{columns}[b]
-\begin{column}{7cm}
-\only<1| handout:0>{\svg{pic/}{Test}{layer1,layer2}}%
-\only<2| handout:0|article:0>{\svg{pic/}{Test}{layer1,layer2,layer3}}%
-\only<3| handout:0>{\svg{pic/}{Test}{layer1,layer2,layer3,layer4}}%
-\only<4| handout:0|article:0>{\svg{pic/}{Test}{layer1,layer2,layer4}}%
-\only<5>{\svg{pic/}{Test}{layer1,layer4,layer2}}%
-\only<6>{\svg{pic/}{Test}{layer1,layer4,layer1:over}}%
-\end{column}
-\begin{column}{4cm}
-Ebenen Schrittweise einblenden.
-
-(handout:0: Nicht auf das Handout)
-
-\begin{itemize}
-\item<1,2,3> Layer aufdecken
-\item<4> Und kombinieren
-\item<5> Es kommt auf die Reihenfolge an.
-\item<6> Mit : auf Dateien mit Suffix zugreifen.
-\end{itemize}
-\end{column}
-\end{columns}
-\only<1| handout:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2\}}%
-\only<2| handout:0|article:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer3\}}%
-\only<3| handout:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer3,layer4\}}%
-\only<4| handout:0|article:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer4\}}%
-\only<5>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer4,layer2\}}%
-\only<6>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer4,layer1:over\}}%
-\end{frame}
-
-\section{Weiteres}
+\section{Dual-Mode Filters}
 \contentframe
-\subsection{Blöcke}
+\begin{frame}{Layout}
+	\begin{figure} 
+		\centering
+		\svg{pic/}{meander_loop_resonator}{}
+		\caption{Layout of the dual-mode band-pass filter.}
+	\end{figure}
+\end{frame}
 
-\begin{frame}{Blöcke}
-\begin{block}{Ein Block}
-\alert<2>{Inhalt.}
-\uncover<3|article:0>{Irgendwas}
-\end{block}
+\begin{frame}{Simulation Results}
+\begin{figure}
+	\centering
+	\svg{pic/}{2_0_filters_simulation}{}
+	\caption{Simulation results \legend{pcolor2}~$S_{21}$ and \legend{pcolor1}~$S_{11}$ for the filters with \\
+		(a) $13.5$ GHz central frequency and
+		(b) $17.5$ GHz central frequency.}
+\end{figure}
+\end{frame}
 
-\begin{exampleblock}{Ein Beispielblock}
-Inhalt.
-\end{exampleblock}
+\begin{frame}{sensitivities}
+	\begin{multicols}{2}
+		\begin{equation}
+		\frac{\partial S_{11}}{\partial s} \approx \SI{0.8}{\dB\per\micro\metre}
+		\end{equation}
+		
+		\begin{equation}
+		\frac{\partial S_{11}}{\partial p} \approx \SI{0.4}{\dB\per\micro\metre}.
+		\end{equation}
+	\end{multicols}
+\begin{figure}[H]
+	\svg{pic/}{sensitivities_s_p}{}
+	\caption{Effects of the variation in $s$ and $p$ on the return loss.}
+\end{figure} 
+\end{frame}
 
-\begin{alertblock}{Ein Alarmblock}
-Inhalt.
-\end{alertblock}
+\begin{frame}{manufactured filters}
+\begin{figure} [H]
+	\svg{pic/}{produced_filters}{}
+	\caption{Pictures of the produced filters.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{manufactured filters}
+     \begin{figure}[H]
+	\centering
+	\svg{pic/}{13_5_S11_comparison}{}
+	\caption{Comparison of the \legend{pcolor1}~simulated and \legend{pcolor2}~measured $S_{11}$ parameter of a manufactured 13.5 GHz filter.}
+\end{figure} 
+\end{frame}
+
+\begin{frame}{manufactured filters}
+	\begin{figure}[H]
+		\centering
+		\svg{pic/}{unsymmetries}{}
+		\caption{Asymmetrical gaps of the manufactured filter.}
+	\end{figure} 
+The measured variations in the gaps are $\Delta s_{1}=14\mu m$  µm and $\Delta s_{2}=6$ m. 
+The average variation is given by $\Delta s= 10$ m.
 
 \end{frame}
 
+\section{Compact Diplexer}
+\contentframe
 
+\section{Conclusion}
+\contentframe
 
 \end{document}
 
