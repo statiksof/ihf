@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="2cm"
+   width="8cm"
+   version="1.1"
+   id="svg22"
+   sodipodi:docname="LC_parallel_simple.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata28">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs26">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1044"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1041"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1138"
+     id="namedview24"
+     showgrid="false"
+     units="cm"
+     inkscape:zoom="1.5119273"
+     inkscape:cx="93.309238"
+     inkscape:cy="145.92728"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg22" />
+  <!-- wires -->
+  <!-- Electric current arrow and label -->
+  <!-- Inductor -->
+  <text
+     x="65.605461"
+     y="50.994198"
+     font-size="24"
+     style="font-size:8.42338276px;font-family:Verdana;fill:#000000;stroke-width:0.35097429"
+     id="text11">$L$</text>
+  <!-- Capacitor -->
+  <polyline
+     points="70,70 70,30 230,30 230,70"
+     style="fill:none;stroke:#000000;stroke-width:2"
+     id="polyline2"
+     transform="matrix(0.35097426,0,0,0.35097428,61.732108,6.8772829)" />
+  <polyline
+     points="70,150 70,190 230,190 230,150"
+     style="fill:none;stroke:#000000;stroke-width:2"
+     id="polyline4"
+     transform="matrix(0.35097426,0,0,0.35097428,61.732108,6.8772829)" />
+  <polygon
+     points="125,30 115,25 115,35 "
+     style="fill:#000000;stroke:#000000;stroke-width:1"
+     id="polygon6"
+     transform="matrix(0.35097426,0,0,0.35097428,61.732108,6.8772829)" />
+  <path
+     id="inductor"
+     d="m 86.300311,31.445483 v 5.264614 q -14.038971,1.754871 0,3.509738 -14.038971,1.754873 0,3.509746 -14.038971,1.754873 0,3.509739 -14.038971,1.754875 0,3.509747 -14.038971,1.754871 0,3.509737 v 5.264613"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-width:0.70194858" />
+  <path
+     id="capacitor"
+     d="m 142.45619,31.445483 v 12.284098 m -7.01949,0 h 14.03897 m 0,3.509739 H 135.4367 m 7.01949,0 v 12.284097"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-width:0.70194858" />
+  <text
+     x="122.20961"
+     y="50.893764"
+     font-size="24"
+     style="font-size:8.42338276px;font-family:Verdana;fill:#000000;stroke-width:0.35097429"
+     id="text14">$C$</text>
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot835"
+     style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:0%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     transform="translate(0,-113.38583)"><flowRegion
+       id="flowRegion837"><rect
+         id="rect839"
+         width="492.2034"
+         height="318.81357"
+         x="-115.59322"
+         y="-78.565994" /></flowRegion><flowPara
+       id="flowPara841" /></flowRoot>  <text
+     x="237.59248"
+     y="50.691494"
+     font-size="24"
+     style="font-size:8.42338276px;font-family:Verdana;fill:#000000;stroke-width:0.35097429"
+     id="text11-7">$L$</text>
+  <g
+     id="g942"
+     transform="matrix(0.57305899,0,0,0.57305899,23.229272,122.90307)">
+    <polyline
+       transform="matrix(-0.61245751,0,0,-0.61245751,396.72223,-67.726809)"
+       id="polyline2-3-5"
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="70,70 70,30 230,30 230,70" />
+    <polyline
+       transform="matrix(-0.61245751,0,0,-0.61245751,396.72223,-67.726809)"
+       id="polyline4-0-5"
+       style="fill:none;stroke:#000000;stroke-width:2"
+       points="70,150 70,190 230,190 230,150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.22491503"
+       inkscape:connector-curvature="0"
+       d="m 353.85021,-110.59884 v -9.18686 q 24.4983,-3.06228 0,-6.12457 24.4983,-3.06229 0,-6.12458 24.4983,-3.06229 0,-6.12457 24.4983,-3.06229 0,-6.12458 24.4983,-3.06229 0,-6.12457 v -9.18686"
+       id="inductor-3-5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.22491503"
+       inkscape:connector-curvature="0"
+       d="m 255.85701,-110.59884 v -21.43601 m 12.24915,0 h -24.4983 m 0,-6.12457 h 24.4983 m -12.24915,0 v -21.43601"
+       id="capacitor-3-3" />
+  </g>
+  <text
+     x="182.83058"
+     y="50.627415"
+     font-size="24"
+     style="font-size:8.42338276px;font-family:Verdana;fill:#000000;stroke-width:0.35097429"
+     id="text14-9">$C$</text>
+  <polygon
+     points="115,35 125,30 115,25 "
+     style="fill:#000000;stroke:#000000;stroke-width:1"
+     id="polygon6-9"
+     transform="matrix(-0.35097426,0,0,-0.35097428,251.26902,27.93567)" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.28652951;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+     d="m 144.2284,17.292998 c 6.40807,-7.855346 12.77027,-15.3122505 23.69893,-0.133892"
+     id="path1039"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:5.76411057px;line-height:0%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21615416px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="148.02371"
+     y="4.8094463"
+     id="text1399"><tspan
+       sodipodi:role="line"
+       id="tspan1397"
+       x="148.02371"
+       y="4.8094463"
+       style="stroke-width:0.21615416px">$C_{m}$</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:15.2815733px;line-height:0%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.57305902px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="208.22897"
+     y="10.598386"
+     id="text1403"><tspan
+       sodipodi:role="line"
+       id="tspan1401"
+       x="208.22897"
+       y="10.598386"
+       style="stroke-width:0.57305902px">$I_{2}$</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:15.2815733px;line-height:0%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.57305902px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="93.14415"
+     y="10.19921"
+     id="text1403-6"><tspan
+       sodipodi:role="line"
+       id="tspan1401-4"
+       x="93.14415"
+       y="10.19921"
+       style="stroke-width:0.57305902px">$I_{1}$</tspan></text>
+  <flowRoot
+     xml:space="preserve"
+     id="flowRoot1423"
+     style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:0%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     transform="translate(0,-113.38583)"><flowRegion
+       id="flowRegion1425"><rect
+         id="rect1427"
+         width="544.99976"
+         height="305.57025"
+         x="-60.18808"
+         y="-70.295349" /></flowRegion><flowPara
+       id="flowPara1429" /></flowRoot></svg>
