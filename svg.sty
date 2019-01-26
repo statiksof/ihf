@@ -1,0 +1,176 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% svg package: convert pictures with inkscape
+%%     IHF, TUHH
+%%
+%% Author: Thomas Jaschke
+%% Version: 2017.1
+%% Änderungen:
+%%		07.04.2017:TJ 2017.01   -> exclude from ihf package
+%%		22.08.2018:TJ 2018.01   -> include externalize package in switch statement
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{svg}[2018/08/22]
+
+% use packages
+\RequirePackage{tikz}
+\RequirePackage{import}
+\RequirePackage{xstring}
+\RequirePackage{adjustbox}
+
+% package options
+\newif\ifexternal\externalfalse
+\DeclareOption{external}{\externaltrue}
+\ExecuteOptions{}
+\ProcessOptions\relax
+
+% create dir if not exist
+\providecommand{\@mkdir}[1]{\immediate\write18{IF NOT EXIST "#1" MKDIR "#1"}}
+
+% load externalize
+\providecommand{\exportfilename}[1]{}	
+\ifexternal
+	\@mkdir{ext/}
+	\usetikzlibrary{external}
+	\tikzexternalize[prefix=ext/]
+	\renewcommand{\exportfilename}[1]{\tikzsetnextfilename{#1}}
+\fi
+
+% auxiliary commands
+\newcommand{\executeiffilenewer}[3]{%
+   \ifnum\pdfstrcmp{\pdffilemoddate{#1}}{\pdffilemoddate{#2}}>0%
+      {\immediate\write18{#3}}\fi%
+}
+
+% include single svg file
+\newcommand{\subincludesvg}{\@ifstar\@subincludesvgPDF\@subincludesvgPDFTeX}
+
+\newcommand{\@subincludesvgPDFTeX}[2]{%
+   \@mkdir{#1build/}
+   \executeiffilenewer{#1#2.svg}{#1build/#2.pdf}%
+   {inkscape -z -C --file=#1#2.svg --export-pdf=#1build/#2.pdf --export-latex --export-area-page}%
+   \subinputfrom*{#1build/}{#2.pdf_tex}%
+}
+
+\newcommand{\@subincludesvgPDF}[2]{%
+   \@mkdir{#1build/}
+   \executeiffilenewer{#1#2.svg}{#1build/#2.pdf}%
+   {inkscape -z -C --file=#1#2.svg --export-pdf=#1build/#2.pdf --export-area-page}%
+   \includegraphics{#1build/#2.pdf}%
+}
+
+% svg command to include single id
+%  \subincludesvgId{dir/}{filename}{ids}{tempname}
+%
+% Arguments:
+%  - dir/:     directory (with / at the end)
+%  - filename: file name (without .svg)
+%  - id:       id of objects/layers (layer1)
+% Examples:
+%  - \subincludesvgId{pic/Bilder/}{Test}{layer1}{l1}
+\newcommand{\subincludesvgId}{\@ifstar\@subincludesvgIdPDF\@subincludesvgIdPDFTeX}
+
+\newcommand{\@subincludesvgIdPDFTeX}[4]{%
+   \@mkdir{#1build/}
+   \executeiffilenewer{#1#2.svg}{#1build/#2#4.pdf}%
+   {inkscape -z -C --file=#1#2.svg --export-pdf=#1build/#2#4.pdf --export-latex --export-id=#3 --export-area-page}%
+   \subinputfrom*{#1build/}{#2#4.pdf_tex}%
+}
+
+\newcommand{\@subincludesvgIdPDF}[4]{%
+   \@mkdir{#1build/}
+   \executeiffilenewer{#1#2.svg}{#1build/#2#4.pdf}%
+   {inkscape -z -C --file=#1#2.svg --export-pdf=#1build/#2#4.pdf --export-id=#3 --export-area-page}%
+   \includegraphics{#1build/#2#4.pdf}%
+}
+
+% workaround to solve conflicts of tikz and textpos [1]
+% [1] stackexchange, "Unexpected output using tikz/textpos", tex.stackexchange.com/questions/66804/unexpected-output-using-tikz-textpos
+\def\cleartextposbox{\newbox\TP@holdbox\global\setbox\TP@holdbox\vbox{}}
+
+% svg command
+%  \svg[scale]{dir/}{filename}{ids}
+%
+% Arguments:
+%  - scale:    scale image as known from \includegraphics (optional)
+%  - dir/:     directory (with / at the end)
+%  - filename: file name (without .svg)
+%  - ids:      ids of objects/layers (id1,id2,id:over)
+% Examples:
+%  - \svg[width=0.5\textwidth]{pic/Bilder/}{Test}{layer2, layer3}
+%  - \svg{pic/Bilder/}{Test}{,layer1:over}
+
+% explode id list
+\def\@explode#1:#2:#3\@nil{\edef\@layer{#1}\edef\@suffix{#2}}
+\def\explode#1{\expandafter\@explode#1::\@nil}
+
+% switch between normal and stared version
+\newcommand{\svg}{\@ifstar\@svgPDF\@svgPDFTeX}
+
+% normal svg
+\newcommand{\@svgPDFTeX}[4][]{
+  \StrSubstitute{#2}{/}{_}[\@folder]
+  \StrSubstitute{#4}{:}{_}[\@layer]
+  \exportfilename{\@folder#3\@layer}
+  \begin{adjustbox}{#1} % \noindent wrt macro
+    \cleartextposbox
+	\ifexternal\tikzset{external/force remake}\fi
+    \begin{tikzpicture}[every node/.style={anchor=south west,inner sep=0pt}] 
+      \if\relax#4\relax
+        \node at (0,0){\subincludesvg{#2}{#3}};
+      \else
+        \@for\elem:=#4\do{\explode{\elem}
+          % define file name
+          \if\relax\@suffix\relax
+          \edef\@fname{#3}
+          \else
+          \edef\@fname{#3_\@suffix}
+          \fi
+          % check for layer
+          \if\relax\@layer\relax
+          \node at (0,0){\subincludesvg{#2}{\@fname}};
+          \else
+          \node at (0,0){\subincludesvgId{#2}{\@fname}{\@layer}{_\@layer}};
+          \fi
+        }
+      \fi
+    \end{tikzpicture}
+  \end{adjustbox}
+}
+
+% normal svg
+\newcommand{\@svgPDF}[4][]{
+  \StrSubstitute{#2}{/}{_}[\@folder]
+  \StrSubstitute{#4}{:}{_}[\@layer]
+  \exportfilename{\@folder#3\@layer}
+  \begin{adjustbox}{#1} % \noindent wrt macro
+    \cleartextposbox
+	\ifexternal\tikzset{external/force remake}\fi
+    \begin{tikzpicture}[every node/.style={anchor=south west,inner sep=0pt}] 
+      \if\relax#4\relax
+        \node at (0,0){\subincludesvg*{#2}{#3}};
+      \else
+        \@for\elem:=#4\do{\explode{\elem}
+          % define file name
+          \if\relax\@suffix\relax
+          \edef\@fname{#3}
+          \else
+          \edef\@fname{#3_\@suffix}
+          \fi
+          % check for layer
+          \if\relax\@layer\relax
+          \node at (0,0){\subincludesvg*{#2}{\@fname}};
+          \else
+          \node at (0,0){\subincludesvgId*{#2}{\@fname}{\@layer}{_\@layer}};
+          \fi
+        }
+      \fi
+    \end{tikzpicture}
+  \end{adjustbox}
+}
+
+\newcommand{\includesvg}[4][]
+{\svg[#1]{#2}{#3}{#4}}
+
+% end package
+\endinput

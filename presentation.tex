@@ -1,0 +1,284 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ihf Beamer-Vorlage
+%%     IHF, TUHH
+%%
+%% Author: Christian Rave, Thomas Jaschke, Christian Friesicke
+%% Version: presentation.tex 2016.03
+%% 			ihfBeamer.cls    2016.02
+%%          ihf.sty          2016.02
+%% Änderungen:
+%% 		22.10.2012: CR 2012.01, ihfBeamer.cls -> Daten aus dem TUHH-Beamer-Template übernommen
+%%		20.12.2012: CR 2012.02, ihfBeamer.cls -> Optionen "article" und "book"
+%%      25.07.2013: CR 2013.01, ihfBeamer.cls -> Optionen "classic", "conference" und "student"
+%%								Dazu die  Befehle "\iType", "\iPlace" und "\iSession"
+%%		04.02.2014:CR 			Kodierung bei allen Dateien zu ISO-8859-1 geändert
+%%      03.03.2014:CR 2014.01   ihfBeamer.cls -> Option "hideallsubsections" hinzugefügt
+%%		27.06.2014:CR 2014.02   Umstellung auf utf8
+%%								Optionen utf8 (default),latin1,anisnew,applemac
+%%		24.11.2015:CR 2015.01   Auflistung eingebundener Packages vollständig
+%%								Nicht benötigte entfernt
+%%		02.11.2015:CR 2015.03   \includesvg-Befehl in ihf.sty ergänzt, Beispielfolien angepasst
+%%		05.02.2016:CR 2016.01   Beispielfolien ergänzt, Option openFullScreen, Befehle \iPDFpagemode und \iPDFstartview ergänzt, Warnungen behoben
+%%      04.03.2016:CR 2016.02   TUHH in Technische Universität Hamburg (ohne Harburg) geändert
+%%      17.05.2016:TJ 2016.03   Änderung in ihf.sty
+%% 		04.10.2017:DS 2017.01   Option "16zu9" in ihfBeamer.cls
+%% 		04.10.2017:DS 2018.08   svg ausgelagert und um "external" Funktion erweitert
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\documentclass[]{ihfBeamer} %Präsentation (klassischer Stil)
+\documentclass[student]{ihfBeamer} %Präsentation im ihf-Stil
+%\documentclass[student,16zu9]{ihfBeamer} %Präsentation im 16:9-ihf-Stil
+%\documentclass[conference]{ihfBeamer} %Präsentation im  Konferenz-Stil
+%\documentclass[handout,student]{ihfBeamer} %Handout
+%\documentclass[article,english]{ihfBeamer} %Artikel (article od book)
+
+% Optionen für die ihfBeamer-Klasse:
+%		classic,student,conference: Stil der Titelfolie
+%		16zu9: Präsentation im 16:9-Format
+%		handout: Für Ausdrucke (keine Farbigen Ränder etc.)
+%		handout2: 2 Folien pro Seite
+%					Bei Einblendungen (z.B. mit \only<2>) werden alle Zustände auf einmal gezeigt.
+%								Hier hilft \only<2| handout:0>
+%		article,book: Für Umdrucke
+%		english,ngerman,german: Sprache
+%		hideallsubsections: Keine Subsection auf Contentframe
+%		utf8 (default),latin1,anisnew,applemac: Zeichencodieung. Wenn nicht utf8 verwendet wird, sind auf der Titelseite keine Umlaute zulässig (auch nicht für den Autornamen)
+%		openFullScreen: PDF wird im Vollbildmodus geöffnet (nicht bei handout, article oder book, hier kann der Befehl \iPDFpagemode{FullScreen} verwendet werden)
+
+% Anm.: Die ihfBeamer-Klasse bindet diese Packages ein:
+%			graphicx    - Für Grafiken
+%			amsmath     - Mathematischer Formelsatz
+%			babel       - Spracheinstellung
+%			inputenc    - Zeichencodierung
+%			fontenc(T1) - Zeichencodierung	
+%			lmodern     - Zeichensatz
+
+%%%%%%%%%%%
+%% Themes
+\usetheme[numbers, compress]{Harburg}
+\useinnertheme{circles}
+
+
+%%%%%%%%%%
+%% Pakete einbinden, je nach Bedarf
+									
+\usepackage{ihf}		
+%	Die Option [pdfwarningpagegroup] schaltet die "PDF inclusion: multiple pdfs with page group included in a single page"-Warnung ein
+%	Bindet diese Pakete ein:
+%			upgreek   - Aufrechte griechische Buchstaben
+%			blindtext - Blindtext
+%			siunitx   - (SI)-Einheiten
+%			import    - Wird für .svg-Bilder benötigt
+%			acronym   - Abkürzungsverzeichnisse
+%			adjustbox - Skalieren von Objekten
+%			etoolbox  - Erweitere Befehle
+
+
+\usepackage[]{svg} %Für svg-Bilder
+%\usepackage[external]{svg} %  PDFs von allen Grafiken in den Ordner \ext erstellen
+
+%	Verwendung von svg-Grafiken:
+%		Voraussetzungen:
+%			-Der Pfad zu Inkscape muss in der Umgebungsvariable path hinterlegt sein
+%			-pdfLaTeX mit der Option "-shell-escape" ausgeführt werden
+%		Befehl:
+%		-> \includesvg[scale]{dir/}{filename}{ids}
+%		Parameter:
+%			scale, optional: Skalierung, wie bei \includegraphics
+%			dir: Pfad (immer mit "/" nach dem letzten Ordnernamen)
+%			filename: Dateiname (immer ohne ".svg")
+%			ids: IDs der svg-Layer/Objekte.
+%		Ohne ids:
+%			\includesvg[scale]{dir/}{filename}{}
+%			Zeichnet alle Layer des svg
+%		Mit ids:
+%			\includesvg[scale]{dir/}{filename}{layer1,layer2,layer3}
+%			Zeichnet nur layer1, layer2 und layer3. Alle Layer werden in der gegebenen Reihenfolge gezeichnet.
+%		Bsp:
+%			\includesvg[width=0.5\textwidth]{pic/Bilder/}{Test}{layer2, layer3}
+%			Zeichnet layer2 und layer3
+%	Anm: Ein alternativ kann auch \svg verwendet werden
+
+
+%%
+%%%%%%%%%%
+
+%%%%%%%%%%%%%%
+%% Einstellungen für das Dokument
+\iTitle[Kurz]{Langer Titel}
+\iSubtitle[K. U.Titel]{Untertitel}
+\iAuthor[D.Autor]{Der Author}
+\iDate{\today}
+%\iSeminar % == \iType{Seminarvortrag}
+%\iType{Seminarvortrag} % Oder \iBachelor etc, siehe ihf-Template für Abschlussarbeiten
+
+%% Beispiel für Konferenzen
+%\iAuthor[D.Autor, D.Düsentrieb]{Der Author$^1$, Daniel Düsentrieb$^2$}
+%\iInstitute{$^1$Technische Universität Hamburg\\
+%$^2$Technische Universität Entenhausen}
+%\iType{EuMW2012}
+%\iPlace{Amsterdam, The Netherlands}
+%\iSession{EuMIC08}
+
+%% Mauelles Einstellen der Logos auf der Titelseite (z.B. für Konferenzen)
+%\titlegraphic{\includegraphics[width=0.2\paperwidth]{./beamerthemeHarburg_tuhh_logo}
+%\hspace{0.5cm}
+%\includegraphics[width=0.2\paperwidth]{./ihf_logo}}
+
+
+%%%%%%%%%%%%%%
+%% Einstellungen für Listen:
+\setbeamertemplate{itemize item}{$\bullet$} 
+\setbeamertemplate{itemize subitem}{$\circ$}
+\setbeamertemplate{itemize subsubitem}{$\blacktriangleright$}
+
+%%%%%%%%%%%%%%
+%% Document
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Titlepage
+\titleframe
+% Titlepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+\contentframe
+% Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Die ihf-Beamer Klasse}
+\contentframe
+
+\subsection{Optionen}
+
+\begin{frame}{Übersicht}
+Optionen der Klasse:\\
+\begin{itemize}
+\item Stile der Titelseite:
+\begin{itemize}
+\item classic: Nur TUHH-Logo
+\item student: IHF-Logo, Art des Vortrages
+\item conference: TUHH-Logo, Konferenz, Ort, Session
+\end{itemize}
+\item Foliensatz
+\begin{itemize}
+\item handout, handout2: Handout
+\item article, book: Für Artikel, Skripte, Bücher
+\end{itemize}
+\item Sprache: english, ngerman, german
+\item Zeichenkodierung: utf8 (default), latin1, anisnew, applemac
+\item hideallsubsections: Subsections werden in der Gliederung nicht gezeigt
+\item openFullScreen: PDF wird im Vollbildmodus geöffnet (nicht bei Handouts oder Umdrucken)
+\end{itemize}
+\end{frame}
+
+
+
+\section{Svg-Grafiken}
+\contentframe
+
+\subsection{Befehle}
+
+\begin{frame}{Voraussetzungen}
+Die svg-Befehle starten Inkscape, um svg-Grafiken in pdf-Dateien umzuwandeln, dafür müssen folgende Bedingungen erfüllt sein:\\
+\begin{itemize}
+\item Inkscape muss installiert sein
+\item Das System muss den Dateipfad zu Inksape kennen (Umgebungsvariable \textit{path})
+\item (pdf)\LaTeX{} muss die Option \textit{-shell-escape} übergeben werden
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Übersicht}
+Das ihf-Package stellt die folgenden Befehle zum Einbinden von svg-Grafiken bereit:\\
+\begin{itemize}
+\item \textbackslash includesvg [scale]\{dir/\}\{filename\}\{ids\}: Universalbefehl, neu ab v2015.3
+\item \textbackslash svg [scale]\{dir/\}\{filename\}\{ids\}: Derselbe Befehl, nur kürzer
+\item Veraltet:
+\begin{itemize}
+\item \textbackslash subincludesvg\{pic/\}\{Test\}
+\item \textbackslash subincludesvgId\{pic/\}\{Test\}\{Id\}\{postfix\}
+\item \textbackslash subincludesvgLayer\{--select=layer1 --select=layer3\}\{pic/\}\{Test\}\{postfix\}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Einfache Grafiken}
+
+\begin{frame}{\textbackslash subincludesvg}
+\subincludesvg{pic/}{Test}\\
+\textbackslash subincludesvg\{pic/\}\{Test\}\\
+Zeigt alle Ebenen auf einmal
+\end{frame}
+
+\begin{frame}{\textbackslash includesvg ohne ids}
+\includesvg{pic/}{Test}{}\\
+\textbackslash includesvg\{pic/\}\{Test\}\{\}\\
+Macht dasselbe
+\end{frame}
+
+\begin{frame}{\textbackslash includesvg mit Skalierung}
+\includesvg[width=0.5\textwidth]{pic/}{Test}{}\\
+\textbackslash includesvg[width=0.5\textbackslash textwidth]\{pic/\}\{Test\}\{\}\\
+Skalierung wie mit \textbackslash includegraphics möglich
+\end{frame}
+
+\subsection{Verwendung von Layern}
+
+\begin{frame}{\textbackslash includesvg mit ids}
+\begin{columns}[b]
+\begin{column}{7cm}
+\only<1| handout:0>{\svg{pic/}{Test}{layer1,layer2}}%
+\only<2| handout:0|article:0>{\svg{pic/}{Test}{layer1,layer2,layer3}}%
+\only<3| handout:0>{\svg{pic/}{Test}{layer1,layer2,layer3,layer4}}%
+\only<4| handout:0|article:0>{\svg{pic/}{Test}{layer1,layer2,layer4}}%
+\only<5>{\svg{pic/}{Test}{layer1,layer4,layer2}}%
+\only<6>{\svg{pic/}{Test}{layer1,layer4,layer1:over}}%
+\end{column}
+\begin{column}{4cm}
+Ebenen Schrittweise einblenden.
+
+(handout:0: Nicht auf das Handout)
+
+\begin{itemize}
+\item<1,2,3> Layer aufdecken
+\item<4> Und kombinieren
+\item<5> Es kommt auf die Reihenfolge an.
+\item<6> Mit : auf Dateien mit Suffix zugreifen.
+\end{itemize}
+\end{column}
+\end{columns}
+\only<1| handout:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2\}}%
+\only<2| handout:0|article:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer3\}}%
+\only<3| handout:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer3,layer4\}}%
+\only<4| handout:0|article:0>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer2,layer4\}}%
+\only<5>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer4,layer2\}}%
+\only<6>{\textbackslash includesvg\{pic/\}\{Test\}\{layer1,layer4,layer1:over\}}%
+\end{frame}
+
+\section{Weiteres}
+\contentframe
+\subsection{Blöcke}
+
+\begin{frame}{Blöcke}
+\begin{block}{Ein Block}
+\alert<2>{Inhalt.}\\
+\uncover<3|article:0>{Irgendwas}
+\end{block}
+
+\begin{exampleblock}{Ein Beispielblock}
+Inhalt.
+\end{exampleblock}
+
+\begin{alertblock}{Ein Alarmblock}
+Inhalt.
+\end{alertblock}
+
+\end{frame}
+
+
+
+\end{document}
+
